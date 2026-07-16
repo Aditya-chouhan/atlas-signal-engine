@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atlas Signal Engine — FDA enforcement as a buying trigger</title>
+<style>
+  :root {
+    --ink:#0d1b2a; --muted:#5a6b7b; --line:#e3e8ee; --bg:#f6f8fb;
+    --card:#fff; --accent:#1b4965; --hot:#c1121f; --ok:#2a9d8f; --chip:#eef3f8;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+         color:var(--ink); background:var(--bg); }
+  .wrap { max-width:1040px; margin:0 auto; padding:0 20px; }
+  header { background:linear-gradient(160deg,#0d1b2a,#1b4965); color:#fff; padding:56px 0 44px; }
+  header .tag { display:inline-block; font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+                opacity:.8; border:1px solid rgba(255,255,255,.3); padding:4px 10px; border-radius:20px; }
+  header h1 { font-size:34px; line-height:1.2; margin:16px 0 10px; }
+  header p { font-size:18px; opacity:.92; max-width:720px; margin:0; }
+  .stats { display:flex; flex-wrap:wrap; gap:14px; margin-top:26px; }
+  .stat { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:10px;
+           padding:12px 16px; }
+  .stat b { display:block; font-size:24px; }
+  .stat span { font-size:12.5px; opacity:.85; }
+  section { padding:38px 0; }
+  h2 { font-size:22px; margin:0 0 6px; }
+  h2 + .lede { color:var(--muted); margin:0 0 22px; max-width:760px; }
+  .thesis { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--accent);
+             border-radius:10px; padding:20px 22px; }
+  .thesis p { margin:0 0 10px; }
+  .thesis p:last-child { margin:0; }
+  table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line);
+           border-radius:10px; overflow:hidden; font-size:14px; }
+  th,td { text-align:left; padding:9px 11px; border-bottom:1px solid var(--line); }
+  th { background:#f0f4f8; font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); }
+  td.rank { color:var(--muted); }
+  td.score b { background:var(--accent); color:#fff; padding:2px 9px; border-radius:20px; font-size:13px; }
+  td.firm { font-weight:600; }
+  td.num,td.qs { text-align:center; }
+  td.seg { color:var(--muted); font-size:12.5px; }
+  tr.out-icp { opacity:.5; }
+  .table-scroll { overflow-x:auto; }
+  .method { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .method .box { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:18px 20px; }
+  .method h3 { margin:0 0 10px; font-size:15px; }
+  .method table { border:none; } .method td { border-bottom:1px solid var(--line); padding:6px 4px; }
+  .method td:last-child { text-align:right; font-variant-numeric:tabular-nums; color:var(--accent); font-weight:600; }
+  .brief { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-bottom:18px; }
+  .brief-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
+  .brief-firm { font-size:18px; font-weight:700; }
+  .brief-sub { color:var(--muted); font-size:13px; margin-top:2px; }
+  .brief-score { font-size:30px; font-weight:800; color:var(--accent); white-space:nowrap; }
+  .brief-score span { font-size:14px; color:var(--muted); font-weight:500; }
+  .brief-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:16px 0 12px; }
+  .brief-grid > div { font-size:14px; }
+  .k { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:2px; }
+  .score-chips { margin:6px 0 14px; }
+  .chip { display:inline-block; background:var(--chip); border:1px solid var(--line); border-radius:20px;
+           padding:3px 10px; font-size:12px; margin:0 6px 6px 0; }
+  .reason,.qterms,.target { font-size:13.5px; margin-bottom:12px; padding:10px 12px; background:#fafcfe;
+            border:1px solid var(--line); border-radius:8px; }
+  .email { border-top:1px dashed var(--line); padding-top:12px; }
+  .email summary { cursor:pointer; font-weight:600; color:var(--accent); }
+  .email-subj { margin:12px 0 8px; font-size:14px; }
+  .email-body { background:#fbfdff; border:1px solid var(--line); border-radius:8px; padding:16px 18px;
+                 font-size:13.5px; color:#24333f; }
+  .honesty { background:#fff8f0; border:1px solid #f0d9bd; border-radius:10px; padding:18px 22px; }
+  .honesty li { margin-bottom:7px; }
+  footer { color:var(--muted); font-size:13px; padding:30px 0 60px; }
+  a { color:var(--accent); }
+  @media (max-width:720px) { .method,.brief-grid { grid-template-columns:1fr 1fr; } header h1{font-size:26px;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <span class="tag">GTM Signal Engine · built for Atlas Compliance</span>
+    <h1>FDA enforcement, turned into a ranked outreach queue.</h1>
+    <p>Atlas sells compliance intelligence to pharma quality teams. The strongest moment to reach one is the week it takes an FDA enforcement action. This engine pulls real FDA recall data, scores every firm for buying-trigger intensity, and drafts the outreach — grounded only in what the FDA actually filed.</p>
+    <div class="stats">
+      <div class="stat"><b>17,793</b><span>FDA drug-enforcement records available</span></div>
+      <div class="stat"><b>1,000</b><span>most-recent pulled &amp; scored</span></div>
+      <div class="stat"><b>219</b><span>distinct firms ranked</span></div>
+      <div class="stat"><b>27</b><span>with a Class I event</span></div>
+      <div class="stat"><b>17</b><span>India-based (Atlas's 2nd segment)</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="wrap">
+  <h2>The thesis</h2>
+  <div class="thesis">
+    <p><b>A pharma firm's FDA enforcement action is a buying trigger for Atlas.</b> When a manufacturer files a Class I/II recall for a cGMP, sterility, or stability failure, its quality/compliance team is — that week — living the exact problem Atlas's platform (searchable 483s, EIRs, Warning Letters, peer benchmarking, investigator trends) is built to solve.</p>
+    <p>This mirrors Atlas's own product logic: enforcement data is the signal. The same data that powers the product can power the <i>go-to-market</i> — an inbound-quality outbound queue where every account is contacted <i>because</i> the data says they're in acute, current pain, not because they fit a static firmographic.</p>
+    <p>Data anchor date: <b>2026-07-08</b> · Source: <a href="https://open.fda.gov/apis/drug/enforcement/">openFDA drug/enforcement</a> (public, no key). Fetched 2026-07-16 08:41 UTC.</p>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>How the score works</h2>
+  <p class="lede">Firms are scored 0–100 on how strong a buying trigger their current enforcement situation is — not a quality verdict on the company. Every input maps to a real FDA field, weights disclosed.</p>
+  <div class="method">
+    <div class="box">
+      <h3>Weights (max 100)</h3>
+      <table>
+        <tr><td>Severity — worst classification (I / II / III)</td><td>40 / 25 / 10</td></tr>
+        <tr><td>Recency — most recent event (&lt;30 / &lt;90 / &lt;180d)</td><td>25 / 18 / 10</td></tr>
+        <tr><td>Systemic — distinct FDA events (10+ / 4–9 / 2–3)</td><td>20 / 14 / 8</td></tr>
+        <tr><td>Quality-system reason flag (cGMP/sterility/impurity…)</td><td>+10</td></tr>
+        <tr><td>Any event still Ongoing</td><td>+5</td></tr>
+      </table>
+    </div>
+    <div class="box">
+      <h3>Why these, specifically</h3>
+      <p style="font-size:13.5px;margin:0 0 8px;"><b>Distinct events, not recall lines.</b> One recall spans many NDCs/lots; counting lines would punish SKU breadth, not risk. Events is the honest count of separate FDA actions.</p>
+      <p style="font-size:13.5px;margin:0;"><b>The quality-system flag</b> is what separates a manufacturer's cGMP failure (Atlas's core ICP — a quality-system problem that maps to 483 patterns) from a distributor's labeling recall (weak fit). Matched against FDA's own reason text, shown per firm below.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Ranked account queue — top 25</h2>
+  <p class="lede">Sorted by Atlas-fit score. Dimmed rows fall outside Atlas's two named ICP segments (US / India). This is what an SDR would work top-down.</p>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>#</th><th>Score</th><th>Firm</th><th>Worst class</th><th>Events</th><th>Recent</th><th>Qual-sys</th><th>Segment</th></tr></thead>
+    <tbody>
+        <tr class="in-icp">
+          <td class="rank">1</td>
+          <td class="score"><b>100</b></td>
+          <td class="firm">SUN PHARMACEUTICAL INDUSTRIES INC</td>
+          <td>Class I</td>
+          <td class="num">13</td>
+          <td>2026-07-01</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">2</td>
+          <td class="score"><b>94</b></td>
+          <td class="firm">Amneal Pharmaceuticals, LLC</td>
+          <td>Class I</td>
+          <td class="num">6</td>
+          <td>2026-06-17</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">3</td>
+          <td class="score"><b>94</b></td>
+          <td class="firm">CareFusion 213, LLC</td>
+          <td>Class I</td>
+          <td class="num">5</td>
+          <td>2026-07-08</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">4</td>
+          <td class="score"><b>94</b></td>
+          <td class="firm">Sandoz Inc</td>
+          <td>Class I</td>
+          <td class="num">4</td>
+          <td>2026-06-24</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">5</td>
+          <td class="score"><b>94</b></td>
+          <td class="firm">Haleon US Holdings LLC</td>
+          <td>Class I</td>
+          <td class="num">4</td>
+          <td>2026-06-17</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">6</td>
+          <td class="score"><b>88</b></td>
+          <td class="firm">IntegraDose Compounding Services LLC</td>
+          <td>Class I</td>
+          <td class="num">3</td>
+          <td>2026-06-24</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">7</td>
+          <td class="score"><b>88</b></td>
+          <td class="firm">Fresenius Kabi USA, LLC</td>
+          <td>Class I</td>
+          <td class="num">3</td>
+          <td>2026-06-17</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">8</td>
+          <td class="score"><b>87</b></td>
+          <td class="firm">B BRAUN MEDICAL INC</td>
+          <td>Class I</td>
+          <td class="num">6</td>
+          <td>2026-05-13</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">9</td>
+          <td class="score"><b>87</b></td>
+          <td class="firm">Unichem Pharmaceuticals USA Inc.</td>
+          <td>Class I</td>
+          <td class="num">4</td>
+          <td>2026-05-13</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">10</td>
+          <td class="score"><b>85</b></td>
+          <td class="firm">Glenmark Pharmaceuticals Inc., USA</td>
+          <td>Class II</td>
+          <td class="num">13</td>
+          <td>2026-06-24</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">11</td>
+          <td class="score"><b>85</b></td>
+          <td class="firm">Cipla USA, Inc.</td>
+          <td>Class II</td>
+          <td class="num">10</td>
+          <td>2026-07-08</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">12</td>
+          <td class="score"><b>80</b></td>
+          <td class="firm">BEEKEEPER&#x27;S NATURALS USA INC.</td>
+          <td>Class I</td>
+          <td class="num">1</td>
+          <td>2026-06-17</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">13</td>
+          <td class="score"><b>79</b></td>
+          <td class="firm">Lupin Pharmaceuticals Inc.</td>
+          <td>Class II</td>
+          <td class="num">9</td>
+          <td>2026-07-08</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">14</td>
+          <td class="score"><b>79</b></td>
+          <td class="firm">Ascend Laboratories, LLC</td>
+          <td>Class II</td>
+          <td class="num">8</td>
+          <td>2026-06-17</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">15</td>
+          <td class="score"><b>79</b></td>
+          <td class="firm">Breckenridge Pharmaceutical, Inc.</td>
+          <td>Class II</td>
+          <td class="num">8</td>
+          <td>2026-06-17</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">16</td>
+          <td class="score"><b>79</b></td>
+          <td class="firm">Lannett Company Inc.</td>
+          <td>Class II</td>
+          <td class="num">6</td>
+          <td>2026-07-08</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">17</td>
+          <td class="score"><b>79</b></td>
+          <td class="firm">The Harvard Drug Group LLC</td>
+          <td>Class II</td>
+          <td class="num">6</td>
+          <td>2026-07-01</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">18</td>
+          <td class="score"><b>79</b></td>
+          <td class="firm">ACCORD HEALTHCARE, INC.</td>
+          <td>Class II</td>
+          <td class="num">4</td>
+          <td>2026-07-08</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">19</td>
+          <td class="score"><b>79</b></td>
+          <td class="firm">Golden State Medical Supply Inc.</td>
+          <td>Class II</td>
+          <td class="num">4</td>
+          <td>2026-06-17</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">20</td>
+          <td class="score"><b>79</b></td>
+          <td class="firm">Eugia US LLC</td>
+          <td>Class II</td>
+          <td class="num">4</td>
+          <td>2026-06-10</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">21</td>
+          <td class="score"><b>78</b></td>
+          <td class="firm">Zydus Pharmaceuticals (USA) Inc</td>
+          <td>Class II</td>
+          <td class="num">14</td>
+          <td>2026-05-27</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">22</td>
+          <td class="score"><b>78</b></td>
+          <td class="firm">Amerisource Health Services LLC</td>
+          <td>Class II</td>
+          <td class="num">10</td>
+          <td>2026-05-27</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">23</td>
+          <td class="score"><b>78</b></td>
+          <td class="firm">Teva Pharmaceuticals USA, Inc</td>
+          <td>Class II</td>
+          <td class="num">10</td>
+          <td>2026-05-13</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">24</td>
+          <td class="score"><b>73</b></td>
+          <td class="firm">Direct Rx</td>
+          <td>Class II</td>
+          <td class="num">3</td>
+          <td>2026-07-01</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr>
+        <tr class="in-icp">
+          <td class="rank">25</td>
+          <td class="score"><b>73</b></td>
+          <td class="firm">Asclemed USA Inc.</td>
+          <td>Class II</td>
+          <td class="num">2</td>
+          <td>2026-07-08</td>
+          <td class="qs">yes</td>
+          <td class="seg">US pharma (CQO segment)</td>
+        </tr></tbody>
+  </table>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Compliance distress briefs — top 8 in-ICP firms</h2>
+  <p class="lede">Each brief is built only from real FDA data. The outreach email maps the firm's actual recall reason to the specific Atlas module that addresses it. Emails are composed examples to spec — none are sent, no contact names are invented.</p>
+  
+        <div class="brief">
+          <div class="brief-head">
+            <div>
+              <div class="brief-firm">SUN PHARMACEUTICAL INDUSTRIES INC</div>
+              <div class="brief-sub">US pharma (CQO segment) · Princeton NJ United States</div>
+            </div>
+            <div class="brief-score">100<span>/100</span></div>
+          </div>
+          <div class="brief-grid">
+            <div><span class="k">Worst classification</span>Class I</div>
+            <div><span class="k">Distinct FDA events (15mo)</span>13</div>
+            <div><span class="k">Most recent</span>2026-07-01 (7d before anchor)</div>
+            <div><span class="k">Status</span>Ongoing</div>
+          </div>
+          <div class="score-chips"><span class="chip">Severity +40</span><span class="chip">Recency +25</span><span class="chip">Systemic +20</span><span class="chip">Quality-system +10</span><span class="chip">Ongoing +5</span></div>
+          <div class="reason"><span class="k">FDA reason on file (verbatim)</span>Failed Dissolution Specifications: An out of specification results observed in dissolution test during analysis at 12-month long term stability station (25C, 60%RH) for Lisdexamfetamine dimesylate capsules.</div>
+          <div class="qterms"><span class="k">Quality-system terms matched</span>assay, contamination, degradation, dissolution, impurit, oos</div>
+          <div class="target"><span class="k">Target role</span>Chief Quality Officer / VP of Quality &nbsp;·&nbsp; <span class="k">Atlas module</span>483/EIR search + peer benchmarking</div>
+          <details class="email">
+            <summary>Drafted outreach email (composed to spec — not sent)</summary>
+            <div class="email-subj"><b>Subject:</b> SUN PHARMACEUTICAL INDUSTRIES INC: Class I recall (2026-07-01) — how peers closed the same finding</div>
+            <div class="email-body">Hi — sending this to whoever owns quality/compliance at SUN PHARMACEUTICAL INDUSTRIES INC.<br><br>I track FDA enforcement in real time. On 2026-07-01, SUN PHARMACEUTICAL INDUSTRIES INC filed a Class I recall; the FDA reason on file reads: &quot;Failed Dissolution Specifications: An out of specification results observed in dissolution test during analysis at 12-month long term stability station (25C, 60%RH) for Lisdexamfet&quot;. This isn&#x27;t isolated — FDA records 13 distinct enforcement events for SUN PHARMACEUTICAL INDUSTRIES INC in the last ~15 months.<br><br>The reason I&#x27;m reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast — what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.<br><br>That&#x27;s what Atlas does. 483/EIR search + peer benchmarking: Pull every 483 citing the same stability/OOS failure mode across peer manufacturers and see the corrective actions FDA accepted.<br><br>We index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters — searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.<br><br>Worth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.<br><br>— [SDR name], Atlas Compliance<br>(This is a composed example for a portfolio demo. It has not been sent.)</div>
+          </details>
+        </div>
+        <div class="brief">
+          <div class="brief-head">
+            <div>
+              <div class="brief-firm">Amneal Pharmaceuticals, LLC</div>
+              <div class="brief-sub">US pharma (CQO segment) · Bridgewater NJ United States</div>
+            </div>
+            <div class="brief-score">94<span>/100</span></div>
+          </div>
+          <div class="brief-grid">
+            <div><span class="k">Worst classification</span>Class I</div>
+            <div><span class="k">Distinct FDA events (15mo)</span>6</div>
+            <div><span class="k">Most recent</span>2026-06-17 (21d before anchor)</div>
+            <div><span class="k">Status</span>Ongoing</div>
+          </div>
+          <div class="score-chips"><span class="chip">Severity +40</span><span class="chip">Recency +25</span><span class="chip">Systemic +14</span><span class="chip">Quality-system +10</span><span class="chip">Ongoing +5</span></div>
+          <div class="reason"><span class="k">FDA reason on file (verbatim)</span>Failed Impurities/Degradation Specifications: N-nitroso-desmethyl-tramadol impurity (NDSRI) was found out of the specification at 24-month stability interval during Long term stability (25C/60%RH).</div>
+          <div class="qterms"><span class="k">Quality-system terms matched</span>contamination, cross-contamination, degradation, impurit, microbial, nitroso</div>
+          <div class="target"><span class="k">Target role</span>Chief Quality Officer / VP of Quality &nbsp;·&nbsp; <span class="k">Atlas module</span>Peer benchmarking + CFR trend analysis</div>
+          <details class="email">
+            <summary>Drafted outreach email (composed to spec — not sent)</summary>
+            <div class="email-subj"><b>Subject:</b> Amneal Pharmaceuticals, LLC: Class I recall (2026-06-17) — how peers closed the same finding</div>
+            <div class="email-body">Hi — sending this to whoever owns quality/compliance at Amneal Pharmaceuticals, LLC.<br><br>I track FDA enforcement in real time. On 2026-06-17, Amneal Pharmaceuticals, LLC filed a Class I recall; the FDA reason on file reads: &quot;Failed Impurities/Degradation Specifications: N-nitroso-desmethyl-tramadol impurity (NDSRI) was found out of the specification at 24-month stability interval during Long term stabi&quot;. This isn&#x27;t isolated — FDA records 6 distinct enforcement events for Amneal Pharmaceuticals, LLC in the last ~15 months.<br><br>The reason I&#x27;m reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast — what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.<br><br>That&#x27;s what Atlas does. Peer benchmarking + CFR trend analysis: See every other firm cited for the same nitrosamine/impurity class of observation, which investigators are driving it, and how they closed it out — before your next inspection.<br><br>We index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters — searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.<br><br>Worth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.<br><br>— [SDR name], Atlas Compliance<br>(This is a composed example for a portfolio demo. It has not been sent.)</div>
+          </details>
+        </div>
+        <div class="brief">
+          <div class="brief-head">
+            <div>
+              <div class="brief-firm">CareFusion 213, LLC</div>
+              <div class="brief-sub">US pharma (CQO segment) · El Paso TX United States</div>
+            </div>
+            <div class="brief-score">94<span>/100</span></div>
+          </div>
+          <div class="brief-grid">
+            <div><span class="k">Worst classification</span>Class I</div>
+            <div><span class="k">Distinct FDA events (15mo)</span>5</div>
+            <div><span class="k">Most recent</span>2026-07-08 (0d before anchor)</div>
+            <div><span class="k">Status</span>Ongoing</div>
+          </div>
+          <div class="score-chips"><span class="chip">Severity +40</span><span class="chip">Recency +25</span><span class="chip">Systemic +14</span><span class="chip">Quality-system +10</span><span class="chip">Ongoing +5</span></div>
+          <div class="reason"><span class="k">FDA reason on file (verbatim)</span>Lack of assurance of sterility: Unsterilized ChloraPrep &amp; PurPrep Applicators, intended for further processing and sterilization were instead distributed to customers outside of the intended distribution channel</div>
+          <div class="qterms"><span class="k">Quality-system terms matched</span>contamination, sterility</div>
+          <div class="target"><span class="k">Target role</span>Chief Quality Officer / VP of Quality &nbsp;·&nbsp; <span class="k">Atlas module</span>Scout gap-assessment + investigator profiles</div>
+          <details class="email">
+            <summary>Drafted outreach email (composed to spec — not sent)</summary>
+            <div class="email-subj"><b>Subject:</b> CareFusion 213, LLC: Class I recall (2026-07-08) — how peers closed the same finding</div>
+            <div class="email-body">Hi — sending this to whoever owns quality/compliance at CareFusion 213, LLC.<br><br>I track FDA enforcement in real time. On 2026-07-08, CareFusion 213, LLC filed a Class I recall; the FDA reason on file reads: &quot;Lack of assurance of sterility: Unsterilized ChloraPrep &amp; PurPrep Applicators, intended for further processing and sterilization were instead distributed to customers outside of th&quot;. This isn&#x27;t isolated — FDA records 5 distinct enforcement events for CareFusion 213, LLC in the last ~15 months.<br><br>The reason I&#x27;m reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast — what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.<br><br>That&#x27;s what Atlas does. Scout gap-assessment + investigator profiles: Run your sterility/contamination SOPs against the real 483 observations in the same category, and pull the profile of the investigator most likely to cover your site.<br><br>We index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters — searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.<br><br>Worth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.<br><br>— [SDR name], Atlas Compliance<br>(This is a composed example for a portfolio demo. It has not been sent.)</div>
+          </details>
+        </div>
+        <div class="brief">
+          <div class="brief-head">
+            <div>
+              <div class="brief-firm">Sandoz Inc</div>
+              <div class="brief-sub">US pharma (CQO segment) · Princeton NJ United States</div>
+            </div>
+            <div class="brief-score">94<span>/100</span></div>
+          </div>
+          <div class="brief-grid">
+            <div><span class="k">Worst classification</span>Class I</div>
+            <div><span class="k">Distinct FDA events (15mo)</span>4</div>
+            <div><span class="k">Most recent</span>2026-06-24 (14d before anchor)</div>
+            <div><span class="k">Status</span>Ongoing</div>
+          </div>
+          <div class="score-chips"><span class="chip">Severity +40</span><span class="chip">Recency +25</span><span class="chip">Systemic +14</span><span class="chip">Quality-system +10</span><span class="chip">Ongoing +5</span></div>
+          <div class="reason"><span class="k">FDA reason on file (verbatim)</span>Labeling: Label Mix-Up; cartons of Cefazolin for Injection, USP 1 gram were found to contain vials labeled as penicillin G potassium for Injection, USP, 20 million Unit. The vials contained Cefozalin</div>
+          <div class="qterms"><span class="k">Quality-system terms matched</span>cgmp</div>
+          <div class="target"><span class="k">Target role</span>Chief Quality Officer / VP of Quality &nbsp;·&nbsp; <span class="k">Atlas module</span>AI Copilot + Warning Letter corpus</div>
+          <details class="email">
+            <summary>Drafted outreach email (composed to spec — not sent)</summary>
+            <div class="email-subj"><b>Subject:</b> Sandoz Inc: Class I recall (2026-06-24) — how peers closed the same finding</div>
+            <div class="email-body">Hi — sending this to whoever owns quality/compliance at Sandoz Inc.<br><br>I track FDA enforcement in real time. On 2026-06-24, Sandoz Inc filed a Class I recall; the FDA reason on file reads: &quot;Labeling: Label Mix-Up; cartons of Cefazolin for Injection, USP 1 gram were found to contain vials labeled as penicillin G potassium for Injection, USP, 20 million Unit&quot;. This isn&#x27;t isolated — FDA records 4 distinct enforcement events for Sandoz Inc in the last ~15 months.<br><br>The reason I&#x27;m reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast — what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.<br><br>That&#x27;s what Atlas does. AI Copilot + Warning Letter corpus: A Class I event draws follow-up scrutiny — see how peers who took Class I recalls fared at their next inspection, and what the recurring 483 themes were.<br><br>We index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters — searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.<br><br>Worth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.<br><br>— [SDR name], Atlas Compliance<br>(This is a composed example for a portfolio demo. It has not been sent.)</div>
+          </details>
+        </div>
+        <div class="brief">
+          <div class="brief-head">
+            <div>
+              <div class="brief-firm">Haleon US Holdings LLC</div>
+              <div class="brief-sub">US pharma (CQO segment) · Warren NJ United States</div>
+            </div>
+            <div class="brief-score">94<span>/100</span></div>
+          </div>
+          <div class="brief-grid">
+            <div><span class="k">Worst classification</span>Class I</div>
+            <div><span class="k">Distinct FDA events (15mo)</span>4</div>
+            <div><span class="k">Most recent</span>2026-06-17 (21d before anchor)</div>
+            <div><span class="k">Status</span>Ongoing</div>
+          </div>
+          <div class="score-chips"><span class="chip">Severity +40</span><span class="chip">Recency +25</span><span class="chip">Systemic +14</span><span class="chip">Quality-system +10</span><span class="chip">Ongoing +5</span></div>
+          <div class="reason"><span class="k">FDA reason on file (verbatim)</span>Labeling: Label Mix-up: The outer carton is labelled Fresh Mint. The tube is labelled Cool Mint/Whitening. The toothpaste inside the tube is Fresh Mint as indicated on the outer carton</div>
+          <div class="qterms"><span class="k">Quality-system terms matched</span>contamination</div>
+          <div class="target"><span class="k">Target role</span>Chief Quality Officer / VP of Quality &nbsp;·&nbsp; <span class="k">Atlas module</span>AI Copilot + Warning Letter corpus</div>
+          <details class="email">
+            <summary>Drafted outreach email (composed to spec — not sent)</summary>
+            <div class="email-subj"><b>Subject:</b> Haleon US Holdings LLC: Class I recall (2026-06-17) — how peers closed the same finding</div>
+            <div class="email-body">Hi — sending this to whoever owns quality/compliance at Haleon US Holdings LLC.<br><br>I track FDA enforcement in real time. On 2026-06-17, Haleon US Holdings LLC filed a Class I recall; the FDA reason on file reads: &quot;Labeling: Label Mix-up: The outer carton is labelled Fresh Mint&quot;. This isn&#x27;t isolated — FDA records 4 distinct enforcement events for Haleon US Holdings LLC in the last ~15 months.<br><br>The reason I&#x27;m reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast — what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.<br><br>That&#x27;s what Atlas does. AI Copilot + Warning Letter corpus: A Class I event draws follow-up scrutiny — see how peers who took Class I recalls fared at their next inspection, and what the recurring 483 themes were.<br><br>We index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters — searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.<br><br>Worth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.<br><br>— [SDR name], Atlas Compliance<br>(This is a composed example for a portfolio demo. It has not been sent.)</div>
+          </details>
+        </div>
+        <div class="brief">
+          <div class="brief-head">
+            <div>
+              <div class="brief-firm">IntegraDose Compounding Services LLC</div>
+              <div class="brief-sub">US pharma (CQO segment) · Shoreview MN United States</div>
+            </div>
+            <div class="brief-score">88<span>/100</span></div>
+          </div>
+          <div class="brief-grid">
+            <div><span class="k">Worst classification</span>Class I</div>
+            <div><span class="k">Distinct FDA events (15mo)</span>3</div>
+            <div><span class="k">Most recent</span>2026-06-24 (14d before anchor)</div>
+            <div><span class="k">Status</span>Ongoing</div>
+          </div>
+          <div class="score-chips"><span class="chip">Severity +40</span><span class="chip">Recency +25</span><span class="chip">Systemic +8</span><span class="chip">Quality-system +10</span><span class="chip">Ongoing +5</span></div>
+          <div class="reason"><span class="k">FDA reason on file (verbatim)</span>Subpotent Drug: Testing revealed there was no oxytocin in the IV bag.</div>
+          <div class="qterms"><span class="k">Quality-system terms matched</span>subpotent</div>
+          <div class="target"><span class="k">Target role</span>Chief Quality Officer / VP of Quality &nbsp;·&nbsp; <span class="k">Atlas module</span>AI Copilot + Warning Letter corpus</div>
+          <details class="email">
+            <summary>Drafted outreach email (composed to spec — not sent)</summary>
+            <div class="email-subj"><b>Subject:</b> IntegraDose Compounding Services LLC: Class I recall (2026-06-24) — how peers closed the same finding</div>
+            <div class="email-body">Hi — sending this to whoever owns quality/compliance at IntegraDose Compounding Services LLC.<br><br>I track FDA enforcement in real time. On 2026-06-24, IntegraDose Compounding Services LLC filed a Class I recall; the FDA reason on file reads: &quot;Subpotent Drug: Testing revealed there was no oxytocin in the IV bag.&quot;. This isn&#x27;t isolated — FDA records 3 distinct enforcement events for IntegraDose Compounding Services LLC in the last ~15 months.<br><br>The reason I&#x27;m reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast — what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.<br><br>That&#x27;s what Atlas does. AI Copilot + Warning Letter corpus: A Class I event draws follow-up scrutiny — see how peers who took Class I recalls fared at their next inspection, and what the recurring 483 themes were.<br><br>We index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters — searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.<br><br>Worth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.<br><br>— [SDR name], Atlas Compliance<br>(This is a composed example for a portfolio demo. It has not been sent.)</div>
+          </details>
+        </div>
+        <div class="brief">
+          <div class="brief-head">
+            <div>
+              <div class="brief-firm">Fresenius Kabi USA, LLC</div>
+              <div class="brief-sub">US pharma (CQO segment) · Lake Zurich IL United States</div>
+            </div>
+            <div class="brief-score">88<span>/100</span></div>
+          </div>
+          <div class="brief-grid">
+            <div><span class="k">Worst classification</span>Class I</div>
+            <div><span class="k">Distinct FDA events (15mo)</span>3</div>
+            <div><span class="k">Most recent</span>2026-06-17 (21d before anchor)</div>
+            <div><span class="k">Status</span>Ongoing</div>
+          </div>
+          <div class="score-chips"><span class="chip">Severity +40</span><span class="chip">Recency +25</span><span class="chip">Systemic +8</span><span class="chip">Quality-system +10</span><span class="chip">Ongoing +5</span></div>
+          <div class="reason"><span class="k">FDA reason on file (verbatim)</span>Microbial Contamination of Sterile Products; out of limit results obtained for endotoxin testing.</div>
+          <div class="qterms"><span class="k">Quality-system terms matched</span>contamination, degradation, endotoxin, impurit, microbial, sterile</div>
+          <div class="target"><span class="k">Target role</span>Chief Quality Officer / VP of Quality &nbsp;·&nbsp; <span class="k">Atlas module</span>Scout gap-assessment + investigator profiles</div>
+          <details class="email">
+            <summary>Drafted outreach email (composed to spec — not sent)</summary>
+            <div class="email-subj"><b>Subject:</b> Fresenius Kabi USA, LLC: Class I recall (2026-06-17) — how peers closed the same finding</div>
+            <div class="email-body">Hi — sending this to whoever owns quality/compliance at Fresenius Kabi USA, LLC.<br><br>I track FDA enforcement in real time. On 2026-06-17, Fresenius Kabi USA, LLC filed a Class I recall; the FDA reason on file reads: &quot;Microbial Contamination of Sterile Products; out of limit results obtained for endotoxin testing.&quot;. This isn&#x27;t isolated — FDA records 3 distinct enforcement events for Fresenius Kabi USA, LLC in the last ~15 months.<br><br>The reason I&#x27;m reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast — what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.<br><br>That&#x27;s what Atlas does. Scout gap-assessment + investigator profiles: Run your sterility/contamination SOPs against the real 483 observations in the same category, and pull the profile of the investigator most likely to cover your site.<br><br>We index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters — searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.<br><br>Worth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.<br><br>— [SDR name], Atlas Compliance<br>(This is a composed example for a portfolio demo. It has not been sent.)</div>
+          </details>
+        </div>
+        <div class="brief">
+          <div class="brief-head">
+            <div>
+              <div class="brief-firm">B BRAUN MEDICAL INC</div>
+              <div class="brief-sub">US pharma (CQO segment) · Allentown PA United States</div>
+            </div>
+            <div class="brief-score">87<span>/100</span></div>
+          </div>
+          <div class="brief-grid">
+            <div><span class="k">Worst classification</span>Class I</div>
+            <div><span class="k">Distinct FDA events (15mo)</span>6</div>
+            <div><span class="k">Most recent</span>2026-05-13 (56d before anchor)</div>
+            <div><span class="k">Status</span>Ongoing</div>
+          </div>
+          <div class="score-chips"><span class="chip">Severity +40</span><span class="chip">Recency +18</span><span class="chip">Systemic +14</span><span class="chip">Quality-system +10</span><span class="chip">Ongoing +5</span></div>
+          <div class="reason"><span class="k">FDA reason on file (verbatim)</span>Lack of assurance of sterility: pinholes, within the finger boxes used during Form Fill Seal process resulting in leaks.</div>
+          <div class="qterms"><span class="k">Quality-system terms matched</span>particulate, sterility</div>
+          <div class="target"><span class="k">Target role</span>Chief Quality Officer / VP of Quality &nbsp;·&nbsp; <span class="k">Atlas module</span>Scout gap-assessment + investigator profiles</div>
+          <details class="email">
+            <summary>Drafted outreach email (composed to spec — not sent)</summary>
+            <div class="email-subj"><b>Subject:</b> B BRAUN MEDICAL INC: Class I recall (2026-05-13) — how peers closed the same finding</div>
+            <div class="email-body">Hi — sending this to whoever owns quality/compliance at B BRAUN MEDICAL INC.<br><br>I track FDA enforcement in real time. On 2026-05-13, B BRAUN MEDICAL INC filed a Class I recall; the FDA reason on file reads: &quot;Lack of assurance of sterility: pinholes, within the finger boxes used during Form Fill Seal process resulting in leaks.&quot;. This isn&#x27;t isolated — FDA records 6 distinct enforcement events for B BRAUN MEDICAL INC in the last ~15 months.<br><br>The reason I&#x27;m reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast — what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.<br><br>That&#x27;s what Atlas does. Scout gap-assessment + investigator profiles: Run your sterility/contamination SOPs against the real 483 observations in the same category, and pull the profile of the investigator most likely to cover your site.<br><br>We index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters — searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.<br><br>Worth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.<br><br>— [SDR name], Atlas Compliance<br>(This is a composed example for a portfolio demo. It has not been sent.)</div>
+          </details>
+        </div>
+</section>
+
+<section class="wrap">
+  <h2>Honesty guardrails</h2>
+  <div class="honesty">
+    <ul>
+      <li><b>Every firm, date, classification and reason is real</b>, pulled verbatim from openFDA. Nothing about the enforcement events is invented.</li>
+      <li><b>No fabricated contacts.</b> Outreach targets a <i>role</i> (the title that owns the pain), never a made-up person or email address — inventing those would be fabrication, not enrichment.</li>
+      <li><b>No email is sent.</b> The drafts are composed examples written to a spec, to show the message the signal produces.</li>
+      <li><b>Scope, stated plainly:</b> openFDA exposes <i>recalls</i> — one enforcement type. Form 483s and Warning Letters (Atlas's fuller corpus) are not in this free feed. This engine detects one signal well rather than pretending to cover all three.</li>
+      <li><b>The score is a buying-trigger score, not a quality verdict.</b> A high score means "acute, current pain — Atlas's best moment to help," not "bad company." Several firms here (e.g. Cipla, Zydus) are Atlas customers already — the engine flags accounts; a human dedupes against CRM.</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="wrap">
+  Built by Aditya Chouhan as a targeted GTM artifact for Atlas Compliance · Pipeline: openFDA → score → brief → draft, all real data, no API keys ·
+  <a href="https://open.fda.gov/apis/drug/enforcement/">Data source</a>
+</footer>
+</body>
+</html>

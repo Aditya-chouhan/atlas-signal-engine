@@ -1,0 +1,302 @@
+{
+  "anchor_date": "2026-07-08",
+  "briefs": [
+    {
+      "firm": "SUN PHARMACEUTICAL INDUSTRIES INC",
+      "score": 100,
+      "components": {
+        "severity": 40,
+        "recency": 25,
+        "systemic": 20,
+        "quality_system": 10,
+        "ongoing": 5
+      },
+      "worst_classification": "Class I",
+      "distinct_events": 13,
+      "total_recall_lines": 22,
+      "most_recent_date": "2026-07-01",
+      "days_since_recent": 7,
+      "any_ongoing": true,
+      "quality_system_flag": true,
+      "quality_terms_matched": [
+        "assay",
+        "contamination",
+        "degradation",
+        "dissolution",
+        "impurit",
+        "oos",
+        "out of specification",
+        "particulate",
+        "stability"
+      ],
+      "segment": "US pharma (CQO segment)",
+      "in_icp": true,
+      "country": "United States",
+      "state": "NJ",
+      "city": "Princeton",
+      "representative_reason": "Failed Dissolution Specifications: An out of specification results observed in dissolution test during analysis at 12-month long term stability station (25\u00bfC, 60%RH) for Lisdexamfetamine dimesylate capsules.",
+      "example_product": "Perampanel CIII Tablets, 6mg, Rx only, 30 Tablets, Mfd.by: Taro Pharmaceutical Industries Ltd., Haifa Bay, Israel 2624761, Dist. by: Sun Pharmaceutical Industri",
+      "outreach": {
+        "target_role": "Chief Quality Officer / VP of Quality",
+        "atlas_module": "483/EIR search + peer benchmarking",
+        "subject": "SUN PHARMACEUTICAL INDUSTRIES INC: Class I recall (2026-07-01) \u2014 how peers closed the same finding",
+        "body": "Hi \u2014 sending this to whoever owns quality/compliance at SUN PHARMACEUTICAL INDUSTRIES INC.\n\nI track FDA enforcement in real time. On 2026-07-01, SUN PHARMACEUTICAL INDUSTRIES INC filed a Class I recall; the FDA reason on file reads: \"Failed Dissolution Specifications: An out of specification results observed in dissolution test during analysis at 12-month long term stability station (25C, 60%RH) for Lisdexamfet\". This isn't isolated \u2014 FDA records 13 distinct enforcement events for SUN PHARMACEUTICAL INDUSTRIES INC in the last ~15 months.\n\nThe reason I'm reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast \u2014 what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.\n\nThat's what Atlas does. 483/EIR search + peer benchmarking: Pull every 483 citing the same stability/OOS failure mode across peer manufacturers and see the corrective actions FDA accepted.\n\nWe index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters \u2014 searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.\n\nWorth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.\n\n\u2014 [SDR name], Atlas Compliance\n(This is a composed example for a portfolio demo. It has not been sent.)"
+      }
+    },
+    {
+      "firm": "Amneal Pharmaceuticals, LLC",
+      "score": 94,
+      "components": {
+        "severity": 40,
+        "recency": 25,
+        "systemic": 14,
+        "quality_system": 10,
+        "ongoing": 5
+      },
+      "worst_classification": "Class I",
+      "distinct_events": 6,
+      "total_recall_lines": 10,
+      "most_recent_date": "2026-06-17",
+      "days_since_recent": 21,
+      "any_ongoing": true,
+      "quality_system_flag": true,
+      "quality_terms_matched": [
+        "contamination",
+        "cross-contamination",
+        "degradation",
+        "impurit",
+        "microbial",
+        "nitroso",
+        "non-sterile",
+        "particulate",
+        "stability",
+        "sterile"
+      ],
+      "segment": "US pharma (CQO segment)",
+      "in_icp": true,
+      "country": "United States",
+      "state": "NJ",
+      "city": "Bridgewater",
+      "representative_reason": "Failed Impurities/Degradation Specifications: N-nitroso-desmethyl-tramadol impurity (NDSRI) was found out of the specification at 24-month stability interval during Long term stability (25\u00bfC/60%RH).",
+      "example_product": "Primidone Tablets, USP, 50 mg, 100 Tablets per Bottle, Rx only, Manufactured by: Amneal Pharmaceuticals Pvt. Ltd., Oral Solid Dosage Unit, Ahmedabad 382213, IND",
+      "outreach": {
+        "target_role": "Chief Quality Officer / VP of Quality",
+        "atlas_module": "Peer benchmarking + CFR trend analysis",
+        "subject": "Amneal Pharmaceuticals, LLC: Class I recall (2026-06-17) \u2014 how peers closed the same finding",
+        "body": "Hi \u2014 sending this to whoever owns quality/compliance at Amneal Pharmaceuticals, LLC.\n\nI track FDA enforcement in real time. On 2026-06-17, Amneal Pharmaceuticals, LLC filed a Class I recall; the FDA reason on file reads: \"Failed Impurities/Degradation Specifications: N-nitroso-desmethyl-tramadol impurity (NDSRI) was found out of the specification at 24-month stability interval during Long term stabi\". This isn't isolated \u2014 FDA records 6 distinct enforcement events for Amneal Pharmaceuticals, LLC in the last ~15 months.\n\nThe reason I'm reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast \u2014 what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.\n\nThat's what Atlas does. Peer benchmarking + CFR trend analysis: See every other firm cited for the same nitrosamine/impurity class of observation, which investigators are driving it, and how they closed it out \u2014 before your next inspection.\n\nWe index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters \u2014 searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.\n\nWorth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.\n\n\u2014 [SDR name], Atlas Compliance\n(This is a composed example for a portfolio demo. It has not been sent.)"
+      }
+    },
+    {
+      "firm": "CareFusion 213, LLC",
+      "score": 94,
+      "components": {
+        "severity": 40,
+        "recency": 25,
+        "systemic": 14,
+        "quality_system": 10,
+        "ongoing": 5
+      },
+      "worst_classification": "Class I",
+      "distinct_events": 5,
+      "total_recall_lines": 18,
+      "most_recent_date": "2026-07-08",
+      "days_since_recent": 0,
+      "any_ongoing": true,
+      "quality_system_flag": true,
+      "quality_terms_matched": [
+        "contamination",
+        "sterility"
+      ],
+      "segment": "US pharma (CQO segment)",
+      "in_icp": true,
+      "country": "United States",
+      "state": "TX",
+      "city": "El Paso",
+      "representative_reason": "Lack of assurance of sterility: Unsterilized ChloraPrep & PurPrep Applicators, intended for further processing and sterilization were instead distributed to customers outside of the intended distribution channel",
+      "example_product": "BD ChloraPrep Hi-Lite Orange, (2% w/v chlorhexidine gluconate (CHG) and 70% v/v isopropyl alcohol (IPA)), packaged as a) 100 x 10.5 mL applicators/case, NDC 543",
+      "outreach": {
+        "target_role": "Chief Quality Officer / VP of Quality",
+        "atlas_module": "Scout gap-assessment + investigator profiles",
+        "subject": "CareFusion 213, LLC: Class I recall (2026-07-08) \u2014 how peers closed the same finding",
+        "body": "Hi \u2014 sending this to whoever owns quality/compliance at CareFusion 213, LLC.\n\nI track FDA enforcement in real time. On 2026-07-08, CareFusion 213, LLC filed a Class I recall; the FDA reason on file reads: \"Lack of assurance of sterility: Unsterilized ChloraPrep & PurPrep Applicators, intended for further processing and sterilization were instead distributed to customers outside of th\". This isn't isolated \u2014 FDA records 5 distinct enforcement events for CareFusion 213, LLC in the last ~15 months.\n\nThe reason I'm reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast \u2014 what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.\n\nThat's what Atlas does. Scout gap-assessment + investigator profiles: Run your sterility/contamination SOPs against the real 483 observations in the same category, and pull the profile of the investigator most likely to cover your site.\n\nWe index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters \u2014 searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.\n\nWorth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.\n\n\u2014 [SDR name], Atlas Compliance\n(This is a composed example for a portfolio demo. It has not been sent.)"
+      }
+    },
+    {
+      "firm": "Sandoz Inc",
+      "score": 94,
+      "components": {
+        "severity": 40,
+        "recency": 25,
+        "systemic": 14,
+        "quality_system": 10,
+        "ongoing": 5
+      },
+      "worst_classification": "Class I",
+      "distinct_events": 4,
+      "total_recall_lines": 5,
+      "most_recent_date": "2026-06-24",
+      "days_since_recent": 14,
+      "any_ongoing": true,
+      "quality_system_flag": true,
+      "quality_terms_matched": [
+        "cgmp"
+      ],
+      "segment": "US pharma (CQO segment)",
+      "in_icp": true,
+      "country": "United States",
+      "state": "NJ",
+      "city": "Princeton",
+      "representative_reason": "Labeling: Label Mix-Up; cartons of Cefazolin for Injection, USP 1 gram were found to contain vials labeled as penicillin G potassium for Injection, USP, 20 million Unit. The vials contained Cefozalin",
+      "example_product": "Focalin XR (dexmethylphenidate HCl) 5 mg, 30 extended-release capsules per bottle, Rx only, Manufactured by Societal CDMO Gainesville, LLC, Gainesville, GA 3050",
+      "outreach": {
+        "target_role": "Chief Quality Officer / VP of Quality",
+        "atlas_module": "AI Copilot + Warning Letter corpus",
+        "subject": "Sandoz Inc: Class I recall (2026-06-24) \u2014 how peers closed the same finding",
+        "body": "Hi \u2014 sending this to whoever owns quality/compliance at Sandoz Inc.\n\nI track FDA enforcement in real time. On 2026-06-24, Sandoz Inc filed a Class I recall; the FDA reason on file reads: \"Labeling: Label Mix-Up; cartons of Cefazolin for Injection, USP 1 gram were found to contain vials labeled as penicillin G potassium for Injection, USP, 20 million Unit\". This isn't isolated \u2014 FDA records 4 distinct enforcement events for Sandoz Inc in the last ~15 months.\n\nThe reason I'm reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast \u2014 what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.\n\nThat's what Atlas does. AI Copilot + Warning Letter corpus: A Class I event draws follow-up scrutiny \u2014 see how peers who took Class I recalls fared at their next inspection, and what the recurring 483 themes were.\n\nWe index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters \u2014 searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.\n\nWorth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.\n\n\u2014 [SDR name], Atlas Compliance\n(This is a composed example for a portfolio demo. It has not been sent.)"
+      }
+    },
+    {
+      "firm": "Haleon US Holdings LLC",
+      "score": 94,
+      "components": {
+        "severity": 40,
+        "recency": 25,
+        "systemic": 14,
+        "quality_system": 10,
+        "ongoing": 5
+      },
+      "worst_classification": "Class I",
+      "distinct_events": 4,
+      "total_recall_lines": 4,
+      "most_recent_date": "2026-06-17",
+      "days_since_recent": 21,
+      "any_ongoing": true,
+      "quality_system_flag": true,
+      "quality_terms_matched": [
+        "contamination"
+      ],
+      "segment": "US pharma (CQO segment)",
+      "in_icp": true,
+      "country": "United States",
+      "state": "NJ",
+      "city": "Warren",
+      "representative_reason": "Labeling: Label Mix-up: The outer carton is labelled Fresh Mint. The tube is labelled Cool Mint/Whitening. The toothpaste inside the tube is Fresh Mint as indicated on the outer carton",
+      "example_product": "Gas-X Extra Strength, SIMETHICONE 125 mg/ANTIGAS, packaged in a) 120 SoftGels (UPC 3 00674 35041 9, b) 72 SoftGels (UPC 3 00439 00572 1), Distributed by: Haleon",
+      "outreach": {
+        "target_role": "Chief Quality Officer / VP of Quality",
+        "atlas_module": "AI Copilot + Warning Letter corpus",
+        "subject": "Haleon US Holdings LLC: Class I recall (2026-06-17) \u2014 how peers closed the same finding",
+        "body": "Hi \u2014 sending this to whoever owns quality/compliance at Haleon US Holdings LLC.\n\nI track FDA enforcement in real time. On 2026-06-17, Haleon US Holdings LLC filed a Class I recall; the FDA reason on file reads: \"Labeling: Label Mix-up: The outer carton is labelled Fresh Mint\". This isn't isolated \u2014 FDA records 4 distinct enforcement events for Haleon US Holdings LLC in the last ~15 months.\n\nThe reason I'm reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast \u2014 what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.\n\nThat's what Atlas does. AI Copilot + Warning Letter corpus: A Class I event draws follow-up scrutiny \u2014 see how peers who took Class I recalls fared at their next inspection, and what the recurring 483 themes were.\n\nWe index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters \u2014 searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.\n\nWorth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.\n\n\u2014 [SDR name], Atlas Compliance\n(This is a composed example for a portfolio demo. It has not been sent.)"
+      }
+    },
+    {
+      "firm": "IntegraDose Compounding Services LLC",
+      "score": 88,
+      "components": {
+        "severity": 40,
+        "recency": 25,
+        "systemic": 8,
+        "quality_system": 10,
+        "ongoing": 5
+      },
+      "worst_classification": "Class I",
+      "distinct_events": 3,
+      "total_recall_lines": 3,
+      "most_recent_date": "2026-06-24",
+      "days_since_recent": 14,
+      "any_ongoing": true,
+      "quality_system_flag": true,
+      "quality_terms_matched": [
+        "subpotent"
+      ],
+      "segment": "US pharma (CQO segment)",
+      "in_icp": true,
+      "country": "United States",
+      "state": "MN",
+      "city": "Shoreview",
+      "representative_reason": "Subpotent Drug: Testing revealed there was no oxytocin in the IV bag.",
+      "example_product": "Vasopressin 2 Units/2 mL in 0.9% Sodium Chloride, syringe, IntegraDose Compounding Services, LLC. 3650 Victoria St N, Suite 900, Shoreview, MN, NDC 71139-0190-1",
+      "outreach": {
+        "target_role": "Chief Quality Officer / VP of Quality",
+        "atlas_module": "AI Copilot + Warning Letter corpus",
+        "subject": "IntegraDose Compounding Services LLC: Class I recall (2026-06-24) \u2014 how peers closed the same finding",
+        "body": "Hi \u2014 sending this to whoever owns quality/compliance at IntegraDose Compounding Services LLC.\n\nI track FDA enforcement in real time. On 2026-06-24, IntegraDose Compounding Services LLC filed a Class I recall; the FDA reason on file reads: \"Subpotent Drug: Testing revealed there was no oxytocin in the IV bag.\". This isn't isolated \u2014 FDA records 3 distinct enforcement events for IntegraDose Compounding Services LLC in the last ~15 months.\n\nThe reason I'm reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast \u2014 what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.\n\nThat's what Atlas does. AI Copilot + Warning Letter corpus: A Class I event draws follow-up scrutiny \u2014 see how peers who took Class I recalls fared at their next inspection, and what the recurring 483 themes were.\n\nWe index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters \u2014 searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.\n\nWorth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.\n\n\u2014 [SDR name], Atlas Compliance\n(This is a composed example for a portfolio demo. It has not been sent.)"
+      }
+    },
+    {
+      "firm": "Fresenius Kabi USA, LLC",
+      "score": 88,
+      "components": {
+        "severity": 40,
+        "recency": 25,
+        "systemic": 8,
+        "quality_system": 10,
+        "ongoing": 5
+      },
+      "worst_classification": "Class I",
+      "distinct_events": 3,
+      "total_recall_lines": 16,
+      "most_recent_date": "2026-06-17",
+      "days_since_recent": 21,
+      "any_ongoing": true,
+      "quality_system_flag": true,
+      "quality_terms_matched": [
+        "contamination",
+        "degradation",
+        "endotoxin",
+        "impurit",
+        "microbial",
+        "sterile",
+        "sterility"
+      ],
+      "segment": "US pharma (CQO segment)",
+      "in_icp": true,
+      "country": "United States",
+      "state": "IL",
+      "city": "Lake Zurich",
+      "representative_reason": "Microbial Contamination of Sterile Products; out of limit results obtained for endotoxin testing.",
+      "example_product": "Epinephrine Injection, USP, 1mg/mL, 1 mL single-dose vial, Rx only, Fresenius Kabi, Lake Zurich, IL 60047, NDC 63323-696-02 (vial), NDC 63323-696-25 (carton)",
+      "outreach": {
+        "target_role": "Chief Quality Officer / VP of Quality",
+        "atlas_module": "Scout gap-assessment + investigator profiles",
+        "subject": "Fresenius Kabi USA, LLC: Class I recall (2026-06-17) \u2014 how peers closed the same finding",
+        "body": "Hi \u2014 sending this to whoever owns quality/compliance at Fresenius Kabi USA, LLC.\n\nI track FDA enforcement in real time. On 2026-06-17, Fresenius Kabi USA, LLC filed a Class I recall; the FDA reason on file reads: \"Microbial Contamination of Sterile Products; out of limit results obtained for endotoxin testing.\". This isn't isolated \u2014 FDA records 3 distinct enforcement events for Fresenius Kabi USA, LLC in the last ~15 months.\n\nThe reason I'm reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast \u2014 what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.\n\nThat's what Atlas does. Scout gap-assessment + investigator profiles: Run your sterility/contamination SOPs against the real 483 observations in the same category, and pull the profile of the investigator most likely to cover your site.\n\nWe index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters \u2014 searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.\n\nWorth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.\n\n\u2014 [SDR name], Atlas Compliance\n(This is a composed example for a portfolio demo. It has not been sent.)"
+      }
+    },
+    {
+      "firm": "B BRAUN MEDICAL INC",
+      "score": 87,
+      "components": {
+        "severity": 40,
+        "recency": 18,
+        "systemic": 14,
+        "quality_system": 10,
+        "ongoing": 5
+      },
+      "worst_classification": "Class I",
+      "distinct_events": 6,
+      "total_recall_lines": 12,
+      "most_recent_date": "2026-05-13",
+      "days_since_recent": 56,
+      "any_ongoing": true,
+      "quality_system_flag": true,
+      "quality_terms_matched": [
+        "particulate",
+        "sterility"
+      ],
+      "segment": "US pharma (CQO segment)",
+      "in_icp": true,
+      "country": "United States",
+      "state": "PA",
+      "city": "Allentown",
+      "representative_reason": "Lack of assurance of sterility: pinholes, within the finger boxes used during Form Fill Seal process resulting in leaks.",
+      "example_product": "Lactated Ringer's Injection USP, 1000 mL container, Rx only, B. Braun Medical, Inc., Bethlehem, PA 18018-3524 USA, NDC 0264-7750-07.",
+      "outreach": {
+        "target_role": "Chief Quality Officer / VP of Quality",
+        "atlas_module": "Scout gap-assessment + investigator profiles",
+        "subject": "B BRAUN MEDICAL INC: Class I recall (2026-05-13) \u2014 how peers closed the same finding",
+        "body": "Hi \u2014 sending this to whoever owns quality/compliance at B BRAUN MEDICAL INC.\n\nI track FDA enforcement in real time. On 2026-05-13, B BRAUN MEDICAL INC filed a Class I recall; the FDA reason on file reads: \"Lack of assurance of sterility: pinholes, within the finger boxes used during Form Fill Seal process resulting in leaks.\". This isn't isolated \u2014 FDA records 6 distinct enforcement events for B BRAUN MEDICAL INC in the last ~15 months.\n\nThe reason I'm reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast \u2014 what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.\n\nThat's what Atlas does. Scout gap-assessment + investigator profiles: Run your sterility/contamination SOPs against the real 483 observations in the same category, and pull the profile of the investigator most likely to cover your site.\n\nWe index 100,000+ inspection observations, 30,000+ Form 483s/EIRs and 11,800+ Warning Letters \u2014 searchable in seconds, at roughly a third of the cost of legacy tools. Cipla, Zydus, Torrent, Strides and Natco already run on it.\n\nWorth a 20-minute look at your specific situation? I can pull the peer set for this exact finding before we even talk.\n\n\u2014 [SDR name], Atlas Compliance\n(This is a composed example for a portfolio demo. It has not been sent.)"
+      }
+    }
+  ]
+}
