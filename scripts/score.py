@@ -103,11 +103,12 @@ def main():
     for r in records:
         name = (r.get("recalling_firm") or "Unknown").strip()
         f = firms.setdefault(name, {
-            "firm": name, "events": set(), "recall_numbers": set(),
+            "firm": name, "events": set(), "recall_numbers": set(), "lines": 0,
             "classes": [], "statuses": set(), "reasons": [],
             "dates": [], "country": r.get("country"), "state": r.get("state"),
             "city": r.get("city"), "products": [],
         })
+        f["lines"] += 1
         if r.get("event_id"):
             f["events"].add(r["event_id"])
         if r.get("recall_number"):
@@ -161,7 +162,15 @@ def main():
                            "quality_system": qual, "ongoing": ong},
             "worst_classification": wc,
             "distinct_events": n_events,
-            "total_recall_lines": len(f["recall_numbers"]),
+            # Count the raw enforcement lines rolled up for this firm, NOT
+            # len(recall_numbers): openFDA leaves `recall_number` blank on some
+            # filings, and a firm whose only line has a blank recall_number was
+            # previously reported as total_recall_lines: 0 despite having a real
+            # enforcement event (caught by gtm-data-quality-monitor, which flagged
+            # ALEMBIC PHARMACEUTICALS, INC. as distinct_events=1 / lines=0).
+            # Scoring is unaffected — `systemic` has always used distinct events.
+            "total_recall_lines": f["lines"],
+            "distinct_recall_numbers": len(f["recall_numbers"]),
             "most_recent_date": most_recent.strftime("%Y-%m-%d") if most_recent else None,
             "days_since_recent": days_since,
             "any_ongoing": ongoing,
