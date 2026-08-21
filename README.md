@@ -15,6 +15,23 @@ the product; here the same data powers the *go-to-market*.
 
 ---
 
+## Measured
+
+Every number here came out of the committed run in `data/`, not an estimate.
+
+| | |
+|---|---|
+| Real FDA records fetched | **1,000** (of 17,793 available in the feed) |
+| Distinct firms after roll-up | **219** |
+| Firms matching the ICP filter | **206** of 219 |
+| Outreach briefs generated | **8** |
+| Score range observed | 18 – 100 |
+| Data cost | **$0** — openFDA is public, no API key |
+| Dependencies | none — Python standard library only |
+
+Reproduce with the four commands under *Pipeline* below; the fetch step re-pulls
+live data, so counts move as the FDA publishes new enforcement actions.
+
 ## Pipeline
 
 ```
