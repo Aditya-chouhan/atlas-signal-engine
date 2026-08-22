@@ -4,6 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Atlas Signal Engine — FDA enforcement as a buying trigger</title>
+<meta name="description" content="FDA enforcement data turned into a ranked outreach queue for a compliance-intelligence buyer — real records, a disclosed scoring rubric, and honesty guardrails throughout.">
+<link rel="canonical" href="https://aditya-chouhan.github.io/atlas-signal-engine/">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#08080A" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Atlas Signal Engine — FDA enforcement as a buying trigger">
+<meta property="og:description" content="FDA enforcement data turned into a ranked outreach queue for a compliance-intelligence buyer.">
+<meta property="og:url" content="https://aditya-chouhan.github.io/atlas-signal-engine/">
+<meta property="og:image" content="https://aditya-chouhan.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231D1D1F'/%3E%3Ctext x='32' y='44' font-family='-apple-system,BlinkMacSystemFont,Helvetica,Arial' font-size='36' font-weight='600' fill='%23fff' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
 <style>
   :root {
     --ink:#0d1b2a; --muted:#5a6b7b; --line:#e3e8ee; --bg:#f6f8fb;
@@ -70,9 +84,61 @@
   footer { color:var(--muted); font-size:13px; padding:30px 0 60px; }
   a { color:var(--accent); }
   @media (max-width:720px) { .method,.brief-grid { grid-template-columns:1fr 1fr; } header h1{font-size:26px;} }
+</style><style>
+/* ============ APPLE-DESIGN RETHEME (adapter) ============ */
+:root{
+  --ink:#1D1D1F; --muted:#6E6E73; --line:rgba(0,0,0,.08); --bg:#F5F5F7;
+  --card:#FFFFFF; --accent:#0066CC; --hot:#1D1D1F; --ok:#1D1D1F; --chip:var(--well);
+  --well:rgba(0,0,0,.035);
+  --hairline-strong:rgba(0,0,0,.14);
+  --e1:0 1px 2px rgba(0,0,0,.04),0 1px 1px rgba(0,0,0,.03);
+  --e2:0 4px 16px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --chrome:rgba(255,255,255,.72);--blur-chrome:20px;
+  --damped:cubic-bezier(.32,.72,0,1);--micro:cubic-bezier(.4,0,.2,1);
+}
+@media(prefers-color-scheme:dark){:root{
+  --ink:#F5F5F7; --muted:#A1A1A6; --line:rgba(255,255,255,.10); --bg:#101012;
+  --card:#141416; --accent:#2997FF; --hot:#F5F5F7; --ok:#F5F5F7; --well:rgba(255,255,255,.045);
+  --hairline-strong:rgba(255,255,255,.18);
+  --e1:0 1px 2px rgba(0,0,0,.5);--e2:0 8px 28px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.05);
+  --chrome:rgba(20,20,22,.72);
+}}
+html{scroll-behavior:smooth}
+body{font-optical-sizing:auto;-webkit-font-smoothing:antialiased;transition:background-color .25s ease,color .25s ease}
+h1,h2,h3{font-weight:600!important;letter-spacing:-0.02em}
+header h1{letter-spacing:-0.025em!important}
+a{transition:color .2s var(--damped)}
+/* header: drop the navy/teal gradient for the shared plain, theme-adaptive hero */
+header{background:transparent!important;color:var(--ink)!important;border-bottom:1px solid var(--line)}
+header .tag{opacity:1;border-color:var(--line)!important;color:var(--muted)}
+header p{opacity:1;color:var(--muted)}
+.stat{background:var(--card)!important;border-color:var(--line)!important;box-shadow:var(--e1)}
+.stat b{color:var(--ink)}
+.stat span{opacity:1;color:var(--muted)}
+/* recessed "well" surfaces instead of hardcoded off-white tints */
+th{background:var(--well)!important}
+.reason,.qterms,.target{background:var(--well)!important;border-color:var(--line)!important}
+.email-body{background:var(--well)!important;border-color:var(--line)!important;color:var(--ink)!important}
+.honesty{background:var(--card)!important;border-color:var(--line)!important;box-shadow:var(--e1)}
+.thesis,.brief,.method .box,table{box-shadow:var(--e1);transition:box-shadow .3s var(--damped)}
+.brief:hover{box-shadow:var(--e2)}
+.chip,.stat,.brief,.reason,.qterms,.target,.email-body{overflow-wrap:anywhere}
+.table-scroll table{min-width:640px}
+.pf-nav{position:sticky;top:0;z-index:50;height:52px;display:flex;align-items:center;border-bottom:1px solid transparent;
+  transition:background-color .35s var(--damped),backdrop-filter .35s var(--damped),border-color .35s var(--damped)}
+.pf-nav[data-stuck="true"]{background:var(--chrome);-webkit-backdrop-filter:blur(var(--blur-chrome)) saturate(180%);backdrop-filter:blur(var(--blur-chrome)) saturate(180%);border-bottom-color:var(--line)}
+.pf-nav-inner{width:100%;max-width:1040px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.pf-back{display:inline-flex;align-items:center;gap:8px;font:500 15px -apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);text-decoration:none}
+.pf-back .arrow{display:inline-block;transition:transform .25s var(--damped)}
+.pf-back:hover .arrow{transform:translateX(-3px)}
+.pf-nav-right a{font:500 15px -apple-system,BlinkMacSystemFont,sans-serif;color:var(--muted);text-decoration:none;margin-left:20px}
+.pf-nav-right a:hover{color:var(--ink)}
+[data-pf-reveal="pending"]{opacity:0;transform:translateY(16px);filter:blur(6px)}
+[data-pf-reveal="in"]{opacity:1;transform:none;filter:blur(0);transition:opacity .55s var(--damped),transform .55s var(--damped),filter .55s var(--damped)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}[data-pf-reveal]{opacity:1!important;transform:none!important;filter:none!important}}
 </style>
 </head>
-<body>
+<body><nav class="pf-nav" id="pfNav" aria-label="Primary"><div class="pf-nav-inner"><a class="pf-back" href="https://aditya-chouhan.github.io/"><span class="arrow">&larr;</span> Aditya Chouhan</a><span class="pf-nav-right"><a href="https://github.com/Aditya-chouhan/atlas-signal-engine">Repository</a><a href="mailto:ai.adityachouhan@gmail.com?subject=Project">Get in touch</a></span></div></nav>
 <header>
   <div class="wrap">
     <span class="tag">GTM Signal Engine · unsolicited spec build for Atlas Compliance</span>
@@ -602,5 +668,35 @@
   Built by Aditya Chouhan as a targeted GTM artifact for Atlas Compliance · Pipeline: openFDA → score → brief → draft, all real data, no API keys ·
   <a href="https://open.fda.gov/apis/drug/enforcement/">Data source</a>
 </footer>
+<script>(function(){
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var nav = document.getElementById('pfNav');
+  var hero = document.querySelector('header');
+  if (nav && hero) {
+    var setStuck = function(){ nav.dataset.stuck = (window.scrollY > hero.offsetHeight - 52) ? 'true' : 'false'; };
+    setStuck(); window.addEventListener('scroll', setStuck, {passive:true});
+  }
+  if (!reduce && 'IntersectionObserver' in window) {
+    var targets = document.querySelectorAll('section, .brief, .method .box');
+    Array.prototype.forEach.call(targets, function(el){ el.dataset.pfReveal = 'pending'; });
+    var io = new IntersectionObserver(function(entries){
+      var i = 0;
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        el.style.transitionDelay = (i*40)+'ms'; i++;
+        el.dataset.pfReveal = 'in';
+        io.unobserve(el);
+      });
+    }, {threshold:0.06, rootMargin:'0px 0px -5% 0px'});
+    Array.prototype.forEach.call(targets, function(el){ io.observe(el); });
+    setTimeout(function(){
+      Array.prototype.forEach.call(document.querySelectorAll('[data-pf-reveal="pending"]'), function(el){
+        el.style.transitionDelay='0ms'; el.dataset.pfReveal='in';
+      });
+    }, 1200);
+  }
+})();</script>
 </body>
 </html>
