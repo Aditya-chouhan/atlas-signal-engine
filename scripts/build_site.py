@@ -173,7 +173,7 @@ def main():
 <body>
 <header>
   <div class="wrap">
-    <span class="tag">GTM Signal Engine · built for Atlas Compliance</span>
+    <span class="tag">GTM Signal Engine · unsolicited spec build for Atlas Compliance</span>
     <h1>FDA enforcement, turned into a ranked outreach queue.</h1>
     <p>Atlas sells compliance intelligence to pharma quality teams. The strongest moment to reach one is the week it takes an FDA enforcement action. This engine pulls real FDA recall data, scores every firm for buying-trigger intensity, and drafts the outreach — grounded only in what the FDA actually filed.</p>
     <div class="stats">
@@ -181,8 +181,14 @@ def main():
       <div class="stat"><b>{len(raw['records']):,}</b><span>most-recent pulled &amp; scored</span></div>
       <div class="stat"><b>{scored['firms_scored']}</b><span>distinct firms ranked</span></div>
       <div class="stat"><b>{n_classI}</b><span>with a Class I event</span></div>
-      <div class="stat"><b>{india}</b><span>India-based (Atlas's 2nd segment)</span></div>
+      <div class="stat"><b>{india}</b><span>India-based (Atlas's 2nd named segment)</span></div>
     </div>
+    <p style="margin-top:22px;padding:14px 16px;border-left:3px solid currentColor;opacity:.72;font-size:13.5px;line-height:1.6;">
+      <b>Unsolicited spec work &mdash; no affiliation.</b> I built this on my own initiative ahead of an
+      interview with Atlas. I have never been engaged by Atlas and have no access to any Atlas system,
+      account, or internal data. Everything here comes from two public sources only: the openFDA
+      enforcement API and Atlas&#39;s own public website. Nothing here is work performed for a client.
+    </p>
   </div>
 </header>
 
@@ -242,7 +248,7 @@ def main():
       <li><b>No fabricated contacts.</b> Outreach targets a <i>role</i> (the title that owns the pain), never a made-up person or email address — inventing those would be fabrication, not enrichment.</li>
       <li><b>No email is sent.</b> The drafts are composed examples written to a spec, to show the message the signal produces.</li>
       <li><b>Scope, stated plainly:</b> openFDA exposes <i>recalls</i> — one enforcement type. Form 483s and Warning Letters (Atlas's fuller corpus) are not in this free feed. This engine detects one signal well rather than pretending to cover all three.</li>
-      <li><b>The score is a buying-trigger score, not a quality verdict.</b> A high score means "acute, current pain — Atlas's best moment to help," not "bad company." Several firms here (e.g. Cipla, Zydus) are Atlas customers already — the engine flags accounts; a human dedupes against CRM.</li>
+      <li><b>The score is a buying-trigger score, not a quality verdict.</b> A high score means "acute, current pain — Atlas's best moment to help," not "bad company." Several firms here (e.g. Cipla, Zydus) are <b>named publicly as customers on Atlas's own website</b> — that public listing is the only basis for saying so; I have no visibility into Atlas's real account list. The engine flags accounts; a human dedupes against CRM.</li>
     </ul>
   </div>
 </section>
