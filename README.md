@@ -2,6 +2,12 @@
 
 **A GTM signal engine built specifically for [Atlas Compliance](https://www.atlas-compliance.ai/).**
 
+> **Unsolicited spec work — no affiliation.** I built this on my own initiative
+> ahead of an interview with Atlas. I have never been engaged by Atlas, and I have
+> no access to any Atlas system, account, or internal data. Everything below is
+> derived from two public sources only: the openFDA enforcement API, and Atlas's
+> own public website. Nothing here should be read as work performed for a client.
+
 Atlas sells FDA compliance intelligence to pharma quality teams. The strongest
 moment to reach one of those teams is the week it takes an FDA enforcement
 action. This engine turns that logic into an outbound queue: it pulls **real**
@@ -74,8 +80,9 @@ whether the firm is "good" or "bad."
 - **Scope stated plainly:** openFDA exposes recalls (one enforcement type). Form 483s
   and Warning Letters (Atlas's fuller corpus) are not in this free feed. This engine
   detects one signal well rather than pretending to cover all three.
-- Some scored firms (Cipla, Zydus) are already Atlas customers — the engine flags
-  accounts; a human dedupes against CRM.
+- Some scored firms (Cipla, Zydus) are **named publicly as customers on Atlas's own
+  website** — that is the only basis for saying so here; I have no visibility into
+  Atlas's actual account list. The engine flags accounts; a human dedupes against CRM.
 
 ## Data source
 
