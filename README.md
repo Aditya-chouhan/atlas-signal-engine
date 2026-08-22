@@ -82,7 +82,7 @@ whether the firm is "good" or "bad."
   detects one signal well rather than pretending to cover all three.
 - Some scored firms (Cipla, Zydus) are **named publicly as customers on Atlas's own
   website** — that is the only basis for saying so here; I have no visibility into
-  Atlas's actual account list. The engine flags accounts; a human dedupes against CRM.
+  Atlas's actual account list. The engine has no customer-list logic and does not detect this — a human dedupes against CRM before anything is sent.
 
 ## Data source
 

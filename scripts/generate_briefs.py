@@ -73,7 +73,7 @@ def clean(s):
     return (s or "").replace("¿", "").replace("°", "deg ").strip()
 
 
-def draft_email(firm):
+def draft_email(firm, span):
     role = ROLE_BY_SEGMENT.get(firm["segment"], "Head of Quality")
 
     wc = firm["worst_classification"] or "recent"
@@ -92,8 +92,8 @@ def draft_email(firm):
 
     if firm["distinct_events"] > 1:
         volume = (f"This isn't isolated — FDA records {firm['distinct_events']} "
-                  f"distinct enforcement events for {firm['firm']} in the last "
-                  f"~15 months.")
+                  f"distinct enforcement events for {firm['firm']} in the "
+                  f"{span} covered by this pull.")
     else:
         volume = ""
 
@@ -101,7 +101,7 @@ def draft_email(firm):
 
     body = f"""Hi — sending this to whoever owns quality/compliance at {firm['firm']}.
 
-I track FDA enforcement in real time. On {date}, {firm['firm']} filed a {wc} recall; the FDA reason on file reads: "{hook}". {volume}
+I track FDA enforcement filings. On {date}, {firm['firm']} filed a {wc} recall; the FDA reason on file reads: "{hook}". {volume}
 
 The reason I'm reaching out: the teams that come out of an event like this cleanest are the ones who benchmark it fast — what the same observation looked like at peer manufacturers, which CFR sections and investigators keep recurring, and what corrective actions FDA actually accepted.
 
@@ -118,13 +118,27 @@ Worth a 20-minute look at your specific situation? I can pull the peer set for t
             "body": body}
 
 
+def data_span():
+    """Actual date span of the fetched records, so the email never states a
+    hardcoded window that silently goes stale as FDA's filing cadence shifts."""
+    raw = json.load(open(os.path.join(DATA, "raw_recalls.json")))
+    rows = raw["records"] if isinstance(raw, dict) else raw
+    dates = sorted(r["report_date"] for r in rows if r.get("report_date"))
+    if not dates:
+        return "period"
+    d0, d1 = dates[0], dates[-1]
+    months = ((int(d1[:4]) - int(d0[:4])) * 12) + (int(d1[4:6]) - int(d0[4:6]))
+    return f"~{months} months" if months >= 2 else "period"
+
+
 def main():
     data = json.load(open(os.path.join(DATA, "scored_firms.json")))
     icp = [f for f in data["firms"] if f["in_icp"]][:TOP_N]
+    span = data_span()
 
     briefs = []
     for f in icp:
-        briefs.append({**f, "outreach": draft_email(f)})
+        briefs.append({**f, "outreach": draft_email(f, span)})
 
     with open(os.path.join(DATA, "briefs.json"), "w") as fp:
         json.dump({"anchor_date": data["anchor_date"], "briefs": briefs}, fp, indent=2)
